@@ -1,0 +1,3 @@
+CMD: [test/assert-resources/liblinear-1.93/predict] [test/assert-resources/liblinear-1.93/working/runtext_nosplit.dat] [test/assert-resources//svm_model/restrict/train_nosplit.dat.model] [test/assert-resources//features/runtext.predict] 
+LOG>test/assert-resources/liblinear-1.93/predict: test/assert-resources/liblinear-1.93/predict: cannot execute binary file
+Stream closed

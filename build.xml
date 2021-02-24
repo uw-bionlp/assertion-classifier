@@ -1,0 +1,66 @@
+<project name="uwassert" default="co" basedir=".">
+  <description>Assertion classification (lite version)</description>
+
+  <property name="jlibproj.dir" value="lib"/> 
+  <property name="jar.trove" value="trove-3.0.0.jar"/>  
+  <property name="jar.opennlp-tools" value="opennlp-tools-1.5.0.jar"/>
+  <property name="jar.opennlp-maxent" value="opennlp-maxent-3.0.0.jar"/>
+
+  <!-- =================================================================== -->
+  <!-- classpath                                                           -->
+  <!-- =================================================================== -->
+  <path id="project.classpath">
+    <pathelement location="${jlibproj.dir}/${jar.trove}"/>
+    <pathelement location="${jlibproj.dir}/${jar.opennlp-tools}"/>
+  </path>
+
+  <!-- =================================================================== -->
+  <!-- Initialization                                                      -->
+  <!-- =================================================================== -->
+  <target name="init">
+    <property name="name" value="assertionclassifier-lite"/>    
+    <property name="version" value="1.1"/>
+
+    <property name="build.src" value="src"/>
+    <property name="build.class" value="build"/>
+    <property name="build.dist" value="dist"/>
+
+    <property name="debug" value="off"/>
+    <property name="optimize" value="on"/>
+    <property name="includeantruntime" value="false"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Compiles the source directory                                       -->
+  <!-- =================================================================== -->
+  <target name="co" depends="init">
+    <mkdir dir="${build.class}"/>
+    <javac srcdir="${build.src}"
+           destdir="${build.class}"
+           debug="${debug}"
+           optimize="${optimize}"
+           includeantruntime="${includeantruntime}"
+           classpathref="project.classpath">
+      <!-- <compilerarg value="-Xlint"/>  -->
+    </javac>
+ </target>
+
+  <!-- =================================================================== -->
+  <!-- Builds a distribution jar                                            -->
+  <!-- =================================================================== -->
+  <target name="dist" depends="co" description="generates the distribution" >
+    <mkdir dir="${build.dist}"/>
+    <jar destfile="${build.dist}/${name}-${version}.jar">
+      <fileset dir="${build.class}"/>
+    </jar>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Clean targets                                                       -->
+  <!-- =================================================================== -->
+  <target name="clean" depends="init">
+    <delete dir="${build.class}"/>
+    <delete dir="${build.dist}"/>
+  </target>
+
+</project> 

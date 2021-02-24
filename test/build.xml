@@ -1,0 +1,58 @@
+<project name="uwassert" default="co" basedir=".">
+  <description>Tester of the lite assertion classifier</description>
+
+  <property name="jlibproj.dir" value="lib"/>
+ 
+  <property name="jar.assert" value="assertionclassifier-lite-1.0.jar"/>    
+  <property name="jar.trove" value="trove-3.0.0.jar"/>  
+  <property name="jar.opennlp-tools" value="opennlp-tools-1.5.0.jar"/>
+  <property name="jar.opennlp-maxent" value="opennlp-maxent-3.0.0.jar"/>
+  <!-- =================================================================== -->
+  <!-- classpath                                                           -->
+  <!-- =================================================================== -->
+  <path id="project.classpath">
+    <pathelement location="${jlibproj.dir}/${jar.trove}"/>
+    <pathelement location="${jlibproj.dir}/${jar.opennlp-tools}"/>
+    <pathelement location="${jlibproj.dir}/${jar.assert}"/>
+  </path>
+
+  <!-- =================================================================== -->
+  <!-- Initialization                                                      -->
+  <!-- =================================================================== -->
+  <target name="init">
+    <property name="name" value="test"/>    
+    <property name="version" value="0.0.1"/>
+
+    <property name="build.src" value="src"/>
+    <property name="build.class" value="build"/>
+    <property name="build.dist" value="dist"/>
+
+    <property name="debug" value="off"/>
+    <property name="optimize" value="on"/>
+    <property name="includeantruntime" value="false"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Compiles the source directory                                       -->
+  <!-- =================================================================== -->
+  <target name="co" depends="init">
+    <mkdir dir="${build.class}"/>
+    <javac srcdir="${build.src}"
+           destdir="${build.class}"
+           debug="${debug}"
+           optimize="${optimize}"
+           includeantruntime="${includeantruntime}"
+           classpathref="project.classpath">
+      <!-- <compilerarg value="-Xlint"/>  -->
+    </javac>
+ </target>
+
+  <!-- =================================================================== -->
+  <!-- Clean targets                                                       -->
+  <!-- =================================================================== -->
+  <target name="clean" depends="init">
+    <delete dir="${build.class}"/>
+    <delete dir="${build.dist}"/>
+  </target>
+
+</project> 

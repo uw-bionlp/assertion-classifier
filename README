@@ -1,0 +1,78 @@
+Assertion classifier (release 1.0)
+January 28, 2013
+
+
+This software implements the methodologies for determining the assertion 
+category of a medical concept mentioned in clinical text as described in 
+the following paper:
+
+Cosmin Adrian Bejan, Lucy Vanderwende, Fei Xia, and Meliha Yetisgen-Yildiz.
+Assertion modeling and its role in clinical phenotype identification.
+Journal of Biomedical Informatics, 2012. 
+http://www.ncbi.nlm.nih.gov/pubmed/23000479
+
+
+The development of this software was funded by Microsoft Research Connections.
+
+
+Overview
+--------
+Assertion classification was introduced  as a shared task into the 2010 i2b2/VA 
+challenge (https://www.i2b2.org/NLP/Relations/), formulated such that each medical 
+concept mentioned in a clinical report is associated with a specific assertion 
+category. The categories that were included in the task are: present, absent, 
+conditional, hypothetical, possible, and not associated with the patient.
+
+Therefore, a system solving the task of assertion classification has to determine
+the assertion category corresponding to a medical concept mentioned in a given text. 
+For instance, given the sentence ``On physical examination, the patient has no 
+fever.'' and the concept in this sentence for which we want to determine the 
+assertion category (in this case, ``fever''), the system should return absent as 
+the most probable assertion category associated with this concept.
+
+
+Installation
+------------
+The system was implemented in Java 1.6 and depends on 
+opennlp-maxent-3.0.0.jar, opennlp-tools-1.5.0.jar, and trove-3.0.0.jar libraries.
+It also depends on Junebae Kye's java implementation of the NegEx and ConText
+algorithms. The system is provided as a JAR library such that it can be easily 
+executed from any other java-based program. The easiest way to call the assertion 
+classifier is by using the 'predict' function from the AssertionClassification class. 
+
+To run the system, the LIBLINEAR classification algorithm need to be 
+installed (http://www.csie.ntu.edu.tw/~cjlin/liblinear/). After the installation,
+in the LIBLINEAR root directory, create a directory called 'working' and
+set write permission to it.
+
+An example of how to use the JAR package is provided in the test/ directory.
+Before running this example, set the LIBLINEAR_PATH property from test.sh to your
+local LIBLINEAR root directory. The output of this example should be:
+s1 = absent
+s2 = present
+s3 = conditional
+s4 = possible
+s5 = associated_with_someone_else
+
+
+Change history
+--------------
+1.0 : initial release
+
+
+
+===========================================================================
+(C) Copyright 2013, Cosmin Adrian Bejan
+
+http://faculty.washington.edu/bejan/
+
+
+Permission is granted for anyone to copy, use, or modify these programs 
+and accompanying documents for purposes of research or education, provided 
+this copyright notice is retained, and note is made of any changes that 
+have been made.
+
+These programs and documents are distributed without any warranty, express 
+or implied.  As the programs were written for research purposes only, they 
+have not been tested to the degree that would be advisable in any important 
+application.  All use of these programs is entirely at the user's own risk.
