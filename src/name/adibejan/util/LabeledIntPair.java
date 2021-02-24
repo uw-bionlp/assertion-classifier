@@ -3,7 +3,7 @@
 *
 * The contents of this file are subject to the LGPL License, Version 3.0.
 *
-* Copyright (C) 2017, The University of Washington
+* Copyright (C) 2021, The University of Washington
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -29,57 +29,58 @@ package name.adibejan.util;
  * @since JDK1.6 | June 2004
  */
 public class LabeledIntPair extends IntPair {
-  protected String label;
+    protected String label;
 
-  /**
-   * Constructs an IntPair from two int values
-   *
-   */
-  public LabeledIntPair(int f, int s, String label) {
-    super(f,s);
-    this.label = label;
-  }
-  
-  public LabeledIntPair(IntPair pair, String label) {
-    super(pair);
-    this.label = label;
-  }
+    /**
+     * Constructs an IntPair from two int values
+     *
+     */
+    public LabeledIntPair(int f, int s, String label) {
+        super(f, s);
+        this.label = label;
+    }
 
-  /**
-   *  Preorder format: label followed by the two integers (token_DELIM1_X_DELIM2_Y)
-   */
-  public static LabeledIntPair getInstanceFromPreorderFormat(String format, String delim1, String delim2) {
-    assert !delim1.equals(delim2) : "Delimiters are the same ["+delim1+"] for ["+format+"]";
-        
-    int pos1 = format.lastIndexOf(delim1); //split by last position of delim1
-    assert pos1 != -1 : "The delimiter ["+delim1+"] does not exist in ["+format+"]!";
-    String _l = format.substring(0,pos1);
-    String bnd = format.substring(pos1+delim1.length(), format.length());
-    
-    int pos2 = bnd.indexOf(delim2);
-    assert pos2 != -1 : "The delimiter ["+delim2+"] does not exist in ["+bnd+"]!";    
-    int _f = Integer.parseInt(bnd.substring(0,pos2));
-    int _s = Integer.parseInt(bnd.substring(pos2+delim2.length(), bnd.length()));
-    return new LabeledIntPair(_f, _s, _l);
-  }
+    public LabeledIntPair(IntPair pair, String label) {
+        super(pair);
+        this.label = label;
+    }
 
-  
-  public void setLabel(String label) {
-    this.label = label;
-  }
+    /**
+     * Preorder format: label followed by the two integers (token_DELIM1_X_DELIM2_Y)
+     */
+    public static LabeledIntPair getInstanceFromPreorderFormat(String format, String delim1, String delim2) {
+        assert !delim1.equals(delim2) : "Delimiters are the same [" + delim1 + "] for [" + format + "]";
 
-  public String getLabel() {
-    return label;
-  }
-  
-  public String toString() {
-    return label+"["+first+"|"+second+"]";
-  }  
+        int pos1 = format.lastIndexOf(delim1); // split by last position of delim1
+        assert pos1 != -1 : "The delimiter [" + delim1 + "] does not exist in [" + format + "]!";
+        String _l = format.substring(0, pos1);
+        String bnd = format.substring(pos1 + delim1.length(), format.length());
 
-  public boolean equals(Object that) {
-    if (this == that) return true;
-    if (!(that instanceof LabeledIntPair)) return false;
-    LabeledIntPair thatPair = (LabeledIntPair)that;
-    return (label.equals(thatPair.label) && (first == thatPair.first) && (second == thatPair.second));
-  }
+        int pos2 = bnd.indexOf(delim2);
+        assert pos2 != -1 : "The delimiter [" + delim2 + "] does not exist in [" + bnd + "]!";
+        int _f = Integer.parseInt(bnd.substring(0, pos2));
+        int _s = Integer.parseInt(bnd.substring(pos2 + delim2.length(), bnd.length()));
+        return new LabeledIntPair(_f, _s, _l);
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public String toString() {
+        return label + "[" + first + "|" + second + "]";
+    }
+
+    public boolean equals(Object that) {
+        if (this == that)
+            return true;
+        if (!(that instanceof LabeledIntPair))
+            return false;
+        LabeledIntPair thatPair = (LabeledIntPair) that;
+        return (label.equals(thatPair.label) && (first == thatPair.first) && (second == thatPair.second));
+    }
 }

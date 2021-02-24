@@ -3,7 +3,7 @@
 *
 * The contents of this file are subject to the LGPL License, Version 3.0.
 *
-* Copyright (C) 2017, The University of Washington
+* Copyright (C) 2021, The University of Washington
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,6 @@ package negex;
 //Output looks as the following: Number TAB Phrase TAB Sentence TAB Dummystring TAB Decision TAB Decision by computer 
 
 import java.io.*;
-import java.util.*;
 
 public class CallKit {
 

@@ -3,7 +3,7 @@
 *
 * The contents of this file are subject to the LGPL License, Version 3.0.
 *
-* Copyright (C) 2017, The University of Washington
+* Copyright (C) 2021, The University of Washington
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -84,7 +84,6 @@ public abstract class FeatureManager {
      */
     public void initWriterManager(TextWriterManager writerManager, String featureFile) {
         Triple<String, String, String> fileTriple = StringUtil.split3FilePath(featureFile);
-        String path = null;
         switch (sscheme) {
             case NOSPLITTING:
                 writerManager.add("nosplit", fileTriple.getFirst() + fileTriple.getSecond() + "_nosplit.dat");

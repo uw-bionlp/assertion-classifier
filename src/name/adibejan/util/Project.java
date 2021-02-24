@@ -3,7 +3,7 @@
 *
 * The contents of this file are subject to the LGPL License, Version 3.0.
 *
-* Copyright (C) 2017, The University of Washington
+* Copyright (C) 2021, The University of Washington
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -24,18 +24,18 @@ package name.adibejan.util;
 import java.io.File;
 
 /**
- * Template for a project class 
+ * Template for a project class
  *
  * @author Cosmin Adrian Bejan
  * @version 1.0
  * @since JDK1.6 | January 2011
  */
 public class Project {
-  public static String PROJPATH;
-  
-  static {
-    PROJPATH = System.getProperty("PROJPATH") + File.separator;
-    if(PROJPATH == null) 
-      ConfigurationException.throwPropertyNotSet("PROJPATH");
-  }
+    public static String PROJPATH;
+
+    static {
+        PROJPATH = System.getProperty("PROJPATH") + File.separator;
+        if (PROJPATH == null)
+            ConfigurationException.throwPropertyNotSet("PROJPATH");
+    }
 }

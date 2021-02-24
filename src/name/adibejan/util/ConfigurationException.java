@@ -3,7 +3,7 @@
 *
 * The contents of this file are subject to the LGPL License, Version 3.0.
 *
-* Copyright (C) 2017, The University of Washington
+* Copyright (C) 2021, The University of Washington
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -29,29 +29,29 @@ package name.adibejan.util;
  * @since JDK1.6
  */
 public class ConfigurationException extends RuntimeException {
-  static final long serialVersionUID = -8391656320532977393L;
-  
-  /**
-   * Constructs a <code>ConfigurationException</code> with no detail message.
-   */
-  public ConfigurationException() {
-    super();
-  }
+    static final long serialVersionUID = -8391656320532977393L;
 
-  /**
-   * Constructs a <code>ConfigurationException</code> with the specified 
-   * detail message. 
-   *
-   * @param s the detail message.
-   */
-  public ConfigurationException(String s) {
-    super(s);
-  }
+    /**
+     * Constructs a <code>ConfigurationException</code> with no detail message.
+     */
+    public ConfigurationException() {
+        super();
+    }
 
-  /**
-   * Throws this exception with a specific message
-   */
-  public static void throwPropertyNotSet(String propName) {
-    throw new ConfigurationException(propName+" is not set. Please use the -D option in your java command.");
-  }
+    /**
+     * Constructs a <code>ConfigurationException</code> with the specified detail
+     * message.
+     *
+     * @param s the detail message.
+     */
+    public ConfigurationException(String s) {
+        super(s);
+    }
+
+    /**
+     * Throws this exception with a specific message
+     */
+    public static void throwPropertyNotSet(String propName) {
+        throw new ConfigurationException(propName + " is not set. Please use the -D option in your java command.");
+    }
 }

@@ -3,7 +3,7 @@
 *
 * The contents of this file are subject to the LGPL License, Version 3.0.
 *
-* Copyright (C) 2017, The University of Washington
+* Copyright (C) 2021, The University of Washington
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -31,17 +31,17 @@ package name.adibejan.util;
  */
 /* order is: REL folowed by its inverse + EQUALS */
 public enum TemporalRelation {
-  BEFORE,
-  AFTER,
-  MEETS,
-  MET_BY,
-  OVERLAPS,
-  OVERLAPPED_BY,
-  STARTS,
-  STARTED_BY,
-  DURING,
-  CONTAINS,
-  FINISHES,
-  FINISHED_BY,
-  EQUALS;
+    BEFORE,
+    AFTER,
+    MEETS,
+    MET_BY,
+    OVERLAPS,
+    OVERLAPPED_BY,
+    STARTS,
+    STARTED_BY,
+    DURING,
+    CONTAINS,
+    FINISHES,
+    FINISHED_BY,
+    EQUALS;
 }

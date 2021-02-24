@@ -3,7 +3,7 @@
 *
 * The contents of this file are subject to the LGPL License, Version 3.0.
 *
-* Copyright (C) 2017, The University of Washington
+* Copyright (C) 2021, The University of Washington
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ import edu.uw.bhi.uwassert.AssertTargetClass;
  * Tool for transforming readable format feature files into SVM format files.
  * The management of features uses the <code>DynamicEnum</code> data structure.
  *
- * @author Cosmin Adrian Bejan
+ * @author Cosmin Adrian Bejan, Nic Dobbins
  * @version 1.0
  * @since JDK1.6 | July 2011
  */

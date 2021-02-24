@@ -3,7 +3,7 @@
 *
 * The contents of this file are subject to the LGPL License, Version 3.0.
 *
-* Copyright (C) 2017, The University of Washington
+* Copyright (C) 2021, The University of Washington
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -27,33 +27,31 @@ import java.util.Properties;
 import java.util.Vector;
 import java.util.Comparator;
 
-import static java.lang.System.out;
-
 /**
- * The Properties class with sorted keys. Useful when it is desired to save the properties
- * with the keys sorted
+ * The Properties class with sorted keys. Useful when it is desired to save the
+ * properties with the keys sorted
  *
  * @author Cosmin Adrian Bejan
  * @version 1.0
  * @since JDK1.6, 10/09/2010
  */
 public class SortedProperties extends Properties {
-  static final long serialVersionUID = -4843927731308514695L;
+    static final long serialVersionUID = -4843927731308514695L;
 
-  private static Comparator<Object> strobjComparator = new Comparator<Object>() {
-    public int compare(Object o1, Object o2) {
-      return ((String)o1).compareTo((String)o2);
-    }
-  };
-  
-  @Override
+    private static Comparator<Object> strobjComparator = new Comparator<Object>() {
+        public int compare(Object o1, Object o2) {
+            return ((String) o1).compareTo((String) o2);
+        }
+    };
+
+    @Override
     public Enumeration<Object> keys() {
-    Enumeration<Object> keysEnum = super.keys();    
-    Vector<Object> keyList = new Vector<Object>();
-    while(keysEnum.hasMoreElements()) {
-      keyList.add(keysEnum.nextElement());
+        Enumeration<Object> keysEnum = super.keys();
+        Vector<Object> keyList = new Vector<Object>();
+        while (keysEnum.hasMoreElements()) {
+            keyList.add(keysEnum.nextElement());
+        }
+        Collections.sort(keyList, strobjComparator);
+        return keyList.elements();
     }
-    Collections.sort(keyList, strobjComparator);
-    return keyList.elements();
-  }
 }

@@ -3,7 +3,7 @@
 *
 * The contents of this file are subject to the LGPL License, Version 3.0.
 *
-* Copyright (C) 2017, The University of Washington
+* Copyright (C) 2021, The University of Washington
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -49,12 +49,12 @@ import static java.lang.System.out;
 /**
  * Feature extractor
  *
- * @author Cosmin Adrian Bejan
+ * @author Cosmin Adrian Bejan, Nic Dobbins
  * @version 1.0
  * @since JDK1.6 | July 2011
  */
 public class LexFeatureExtractor {
-    private List<LabeledIntPair> bionegSignals; // n-gram , freq, n
+    private List<LabeledIntPair> bionegSignals;  // n-gram , freq, n
     private List<LabeledIntPair> kinshipSignals; // n-gram , freq, n
     public static List<String> negPrefixes = Arrays.asList("ab de di il im in ir re un no mel mal mis".split("\\s+"));
 
@@ -76,6 +76,9 @@ public class LexFeatureExtractor {
         return extractFeatures(instance, resource);
     }
 
+    /**
+     * Extracts features from a given token sequence
+     */
     public List<String> extractFeatures(String[] pretokenizedSentence, IntPair oConceptBoundaries) {
         SentenceLevelResources resource = new SentenceLevelResources();
         resource.toks = pretokenizedSentence;
@@ -95,7 +98,6 @@ public class LexFeatureExtractor {
     /*
      * Extracts features for instances where the discourse resources are not
      * available
-     *
      */
     public List<String> extractFeatures(AssertAnnotation instance, SentenceLevelResources sentRes) {
 
@@ -132,9 +134,6 @@ public class LexFeatureExtractor {
                 if (pos != -1 && closestNegSignalBefore.getFirst() > pos) {
                     feature = prefix + " NEGSIGNALCLOSESTLEFT_COMMARESTRICTED#true";
                     features.add(feature);
-                } else {
-                    // feature = prefix+" NEGSIGNALCLOSESTLEFT_COMMARESTRICTED#false";
-                    // feWriter.println(feature);
                 }
             }
         }

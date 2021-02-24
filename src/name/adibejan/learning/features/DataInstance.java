@@ -3,7 +3,7 @@
 *
 * The contents of this file are subject to the LGPL License, Version 3.0.
 *
-* Copyright (C) 2017, The University of Washington
+* Copyright (C) 2021, The University of Washington
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -24,86 +24,85 @@ package name.adibejan.learning.features;
 import name.adibejan.util.UnsupportedDataFormatException;
 import name.adibejan.util.IntCounterHashtable;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
- * Data structure for a data instance. 
+ * Data structure for a data instance.
  *
- * @author Cosmin Adrian Bejan
+ * @author Cosmin Adrian Bejan, Nic Dobbins
  * @version 1.0
  * @since JDK1.6 | July 2011
  */
 
 public class DataInstance {
-  public int id;
-  public String targetValue;  
-  private IntCounterHashtable features;
+    public int id;
+    public String targetValue;
+    private IntCounterHashtable features;
 
-  public DataInstance(FeaturePair featurePair, int featureID) {
-    features = new IntCounterHashtable();
-    id = featurePair.getId();
-    targetValue = featurePair.getTargetValue();
-    features.update(featureID);
-  }
-
-  public void update(FeaturePair featurePair, int featureID) {
-    if(id != featurePair.getId()) 
-      throw new UnsupportedDataFormatException("Ids are not consistent ["+id+"] != ["+featurePair.instanceID+"]");
-    if(!targetValue.equals(featurePair.getTargetValue())) 
-      throw new UnsupportedDataFormatException("Targets are not consistent ["+targetValue+"] != ["+featurePair.targetValue+"]");
-    features.update(featureID);
-  }
-
-  public int[] getKeys() {
-      return features.keys();
-  }
-
-  /**
-   * Returns the following format: targetClass fid1:1 fid2:1 ...
-   */
-  public String getNoWeightingFormat() {
-    int[] keys = features.keys();
-    Arrays.sort(keys);
-    
-    StringBuilder builder = new StringBuilder();
-    //builder.append("("+id+") ");
-    builder.append(targetValue);
-    builder.append(" ");
-    for(int i=0; i<keys.length-1; i++) {
-      builder.append(keys[i]);
-      builder.append(":1 ");
+    public DataInstance(FeaturePair featurePair, int featureID) {
+        features = new IntCounterHashtable();
+        id = featurePair.getId();
+        targetValue = featurePair.getTargetValue();
+        features.update(featureID);
     }
-    builder.append(keys[keys.length-1]);
-    builder.append(":1");
-    
-    return builder.toString();
-  }
 
-
-  /**
-   * Returns the following format: targetClass fid1:freq(fid1) fid2:freq(fid2) ...
-   */
-  public String getFrequencyWeightingFormat() {
-    int[] keys = features.keys();
-    Arrays.sort(keys);
-    
-    StringBuilder builder = new StringBuilder();
-    //builder.append("("+id+") ");
-    builder.append(targetValue);
-    builder.append(" ");
-    for(int i=0; i<keys.length-1; i++) {
-      builder.append(keys[i]);
-      builder.append(":");
-      builder.append(features.getCount(keys[i]));
-      builder.append(" ");
+    public void update(FeaturePair featurePair, int featureID) {
+        if (id != featurePair.getId())
+            throw new UnsupportedDataFormatException(
+                    "Ids are not consistent [" + id + "] != [" + featurePair.instanceID + "]");
+        if (!targetValue.equals(featurePair.getTargetValue()))
+            throw new UnsupportedDataFormatException(
+                    "Targets are not consistent [" + targetValue + "] != [" + featurePair.targetValue + "]");
+        features.update(featureID);
     }
-    builder.append(keys[keys.length-1]);
-    builder.append(":");
-    builder.append(features.getCount(keys[keys.length-1]));
-    
-    return builder.toString();
-  }
+
+    public int[] getKeys() {
+        return features.keys();
+    }
+
+    /**
+     * Returns the following format: targetClass fid1:1 fid2:1 ...
+     */
+    public String getNoWeightingFormat() {
+        int[] keys = features.keys();
+        Arrays.sort(keys);
+
+        StringBuilder builder = new StringBuilder();
+        // builder.append("("+id+") ");
+        builder.append(targetValue);
+        builder.append(" ");
+        for (int i = 0; i < keys.length - 1; i++) {
+            builder.append(keys[i]);
+            builder.append(":1 ");
+        }
+        builder.append(keys[keys.length - 1]);
+        builder.append(":1");
+
+        return builder.toString();
+    }
+
+    /**
+     * Returns the following format: targetClass fid1:freq(fid1) fid2:freq(fid2) ...
+     */
+    public String getFrequencyWeightingFormat() {
+        int[] keys = features.keys();
+        Arrays.sort(keys);
+
+        StringBuilder builder = new StringBuilder();
+        // builder.append("("+id+") ");
+        builder.append(targetValue);
+        builder.append(" ");
+        for (int i = 0; i < keys.length - 1; i++) {
+            builder.append(keys[i]);
+            builder.append(":");
+            builder.append(features.getCount(keys[i]));
+            builder.append(" ");
+        }
+        builder.append(keys[keys.length - 1]);
+        builder.append(":");
+        builder.append(features.getCount(keys[keys.length - 1]));
+
+        return builder.toString();
+    }
 
 }

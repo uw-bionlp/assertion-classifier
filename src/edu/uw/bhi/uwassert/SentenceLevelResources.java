@@ -3,7 +3,7 @@
 *
 * The contents of this file are subject to the LGPL License, Version 3.0.
 *
-* Copyright (C) 2017, The University of Washington
+* Copyright (C) 2021, The University of Washington
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -31,29 +31,29 @@ import name.adibejan.util.IntPair;
  * @since JDK1.6 | July 2011
  */
 public class SentenceLevelResources {
-  public String[] toks;  
-  
-  /**
-   * Returns the sentence as a concatenation of stems (from the general splat stem sequence)
-   */
-  public String getTokenSequence(IntPair bnd, String delim) {
-    return getTokenSequence(bnd.getFirst(), bnd.getSecond(), delim);
-  }
-  
-  /**
-   * Returns the sentence as a concatenation of tokens
-   */
-  public String getTokenSequence(int first, int second, String delim) {
-    if(first < 0 || first > second || second >= toks.length)
-      throw new IndexOutOfBoundsException("Illegal splat sequence boundaries ["+first+":"+second+"]");
-    
-    StringBuilder builder = new StringBuilder();
-    int i;
-    for(i = first; i < second; i++) {
-      builder.append(toks[i]);
-      builder.append(delim);
+    public String[] toks;
+
+    /**
+     * Returns the sentence as a concatenation of stems (from the general splat stem sequence)
+     */
+    public String getTokenSequence(IntPair bnd, String delim) {
+        return getTokenSequence(bnd.getFirst(), bnd.getSecond(), delim);
     }
-    builder.append(toks[i]);
-    return builder.toString();    
-  }
+
+    /**
+     * Returns the sentence as a concatenation of tokens
+     */
+    public String getTokenSequence(int first, int second, String delim) {
+        if (first < 0 || first > second || second >= toks.length)
+            throw new IndexOutOfBoundsException("Illegal splat sequence boundaries [" + first + ":" + second + "]");
+
+        StringBuilder builder = new StringBuilder();
+        int i;
+        for (i = first; i < second; i++) {
+            builder.append(toks[i]);
+            builder.append(delim);
+        }
+        builder.append(toks[i]);
+        return builder.toString();
+    }
 }

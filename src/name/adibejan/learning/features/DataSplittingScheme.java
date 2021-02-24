@@ -3,7 +3,7 @@
 *
 * The contents of this file are subject to the LGPL License, Version 3.0.
 *
-* Copyright (C) 2017, The University of Washington
+* Copyright (C) 2021, The University of Washington
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -22,8 +22,8 @@
 package name.adibejan.learning.features;
 
 /**
- * Splitting schemes for data instances.
- * Key conventions for TextWriterManager: <br/>
+ * Splitting schemes for data instances. Key conventions for TextWriterManager:
+ * <br/>
  * * nosplit <br/>
  * * fold1 .. fold5 <br/>
  * * fold1 .. fold10 <br/>
@@ -34,7 +34,7 @@ package name.adibejan.learning.features;
  */
 
 public enum DataSplittingScheme {
-  NOSPLITTING,
-    TENFOLD,
+    NOSPLITTING, 
+    TENFOLD, 
     FIVEFOLD;
 }

@@ -31,8 +31,6 @@ import name.adibejan.learning.features.DynamicFeatureManager;
 import java.io.File;
 import java.util.List;
 
-import edu.uw.bhi.decoder.liblinear.LibLinearDecoder;
-
 /**
  * Assert System
  *

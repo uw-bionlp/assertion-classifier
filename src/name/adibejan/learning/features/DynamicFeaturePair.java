@@ -3,7 +3,7 @@
 *
 * The contents of this file are subject to the LGPL License, Version 3.0.
 *
-* Copyright (C) 2017, The University of Washington
+* Copyright (C) 2021, The University of Washington
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ import static java.lang.System.out;
 /**
  * Data structure for a feature pair with the feature type from a DynamicEnum.
  *
- * @author Cosmin Adrian Bejan
+ * @author Cosmin Adrian Bejan, Nic Dobbins
  * @version 1.0
  * @since JDK1.6 | September 2011
  */
@@ -53,9 +53,9 @@ public class DynamicFeaturePair extends FeaturePair {
             Class<TC> targetClass, DynamicEnum dynenum) {
         String[] toks = rep.split("\\s+");
         DynamicFeaturePair instance = getPartialInstance(toks, dynenum);
-        if (instance == null) 
+        if (instance == null)
             return null;
-            
+
         TC target = EnumUtil.getField(toks[1].toUpperCase(), targetClass);
         instance.targetValue = "" + (target.ordinal() + 1);
 

@@ -3,7 +3,7 @@
 *
 * The contents of this file are subject to the LGPL License, Version 3.0.
 *
-* Copyright (C) 2017, The University of Washington
+* Copyright (C) 2021, The University of Washington
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -21,8 +21,6 @@
 
 package name.adibejan.util.dynenum;
 
-import static java.lang.System.out;
-
 /**
  * Represeints an enumeration value for <code>DynamicEnum</code>
  *
@@ -31,28 +29,29 @@ import static java.lang.System.out;
  * @since JDK1.6 | September 2011
  */
 public class EnumValue {
-  protected int ord;
-  protected String name;
-  
-  /**
-   * Creates an <code>EnumValue</code> object. This class cannot be instantiated from outside the package.
-   */
-  EnumValue(String name, int ord) {
-    this.name = name;
-    this.ord = ord;
-  }
-  
-  /** 
-   * Returns the name of the corresponding object
-   */
-  public String name() {
-    return name;
-  }
-  
-  /** 
-   * Returns the ordinal of the corresponding object
-   */
-  public int ordinal() {
-    return ord;
-  }
+    protected int ord;
+    protected String name;
+
+    /**
+     * Creates an <code>EnumValue</code> object. This class cannot be instantiated
+     * from outside the package.
+     */
+    EnumValue(String name, int ord) {
+        this.name = name;
+        this.ord = ord;
+    }
+
+    /**
+     * Returns the name of the corresponding object
+     */
+    public String name() {
+        return name;
+    }
+
+    /**
+     * Returns the ordinal of the corresponding object
+     */
+    public int ordinal() {
+        return ord;
+    }
 }

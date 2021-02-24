@@ -3,7 +3,7 @@
 *
 * The contents of this file are subject to the LGPL License, Version 3.0.
 *
-* Copyright (C) 2017, The University of Washington
+* Copyright (C) 2021, The University of Washington
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -46,99 +46,102 @@ import static java.lang.System.out;
  * @since JDK1.6 | September 2011
  */
 public class DynamicEnum {
-  protected TObjectIntHashMap<String> map;
-  protected List<EnumValue> values;
-  protected int size;
-  
-  /**
-   * Creates a dynamic enumeration structure
-   */
-  protected DynamicEnum() {
-    map = new TObjectIntHashMap<String>();
-    values = new ArrayList<EnumValue>();
-    size = 0;
-  }
+    protected TObjectIntHashMap<String> map;
+    protected List<EnumValue> values;
+    protected int size;
 
-  /**
-   * Appends a new <code>EnumValue</code> object specified name
-   */
-  public void add(String name) {
-    if(!map.containsKey(name)) {
-      map.put(name, size);
-      values.add(new EnumValue(name, size));
-      size++;
+    /**
+     * Creates a dynamic enumeration structure
+     */
+    protected DynamicEnum() {
+        map = new TObjectIntHashMap<String>();
+        values = new ArrayList<EnumValue>();
+        size = 0;
     }
-  }
-  
-  /**
-   * Checks if a give <code>EnumValue</code> name is already in this structure
-   */
-  public boolean contains(String name) {
-    return map.containsKey(name);
-  }
 
-  /**
-   * Checks if a give <code>EnumValue</code> ordinal is already in this structure
-   */
-  public boolean contains(int ordinal) {
-    if(map.isEmpty()) return false;
-    if(ordinal >= 0 && ordinal < size) return true;
-    return false;
-  }
-
-  /**
-   * Returns the size of this structure
-   */
-  public int size() {
-    return size;
-  }
-
-  /**
-   * Given a name, returns its corresponding <code>EnumValue</code> object
-   */
-  public EnumValue get(String name) {
-    if(!contains(name))
-      throw new IllegalArgumentException("["+name+"] not in the map!");
-    return values.get(map.get(name));
-  }
-  
-  /**
-   * Given an ordinal, returns its corresponding <code>EnumValue</code> object
-   */
-  public EnumValue get(int ordinal) {
-    if(!contains(ordinal))
-      throw new IllegalArgumentException("["+ordinal+"] not in the map!");
-    return values.get(ordinal);    
-  }
-  
-  /**
-   * Returns the names of this enumeration
-   */
-  public Set<String> getNames() {
-    return map.keySet();
-  }
-
-  /**
-   * Returns an empty <code>DynamicEnumSet</code> for this structure
-   */
-  public DynamicEnumSet noneOf() {
-    DynamicEnumSet<DynamicEnum> set = new DynamicEnumSet<DynamicEnum>(this);
-    return set;
-  }
-  
-  /**
-   * Returns a <code>DynamicEnumSet</code> that contains all the names of this structure
-   */
-  public DynamicEnumSet allOf() {
-    DynamicEnumSet<DynamicEnum> set = new DynamicEnumSet<DynamicEnum>(this);
-    for(EnumValue value : values) {
-      set.add(value.name());
+    /**
+     * Appends a new <code>EnumValue</code> object specified name
+     */
+    public void add(String name) {
+        if (!map.containsKey(name)) {
+            map.put(name, size);
+            values.add(new EnumValue(name, size));
+            size++;
+        }
     }
-    return set;
-  }
 
-  public void println() {
-    for(EnumValue value : values) 
-      out.println(value.name());
-  }
+    /**
+     * Checks if a give <code>EnumValue</code> name is already in this structure
+     */
+    public boolean contains(String name) {
+        return map.containsKey(name);
+    }
+
+    /**
+     * Checks if a give <code>EnumValue</code> ordinal is already in this structure
+     */
+    public boolean contains(int ordinal) {
+        if (map.isEmpty())
+            return false;
+        if (ordinal >= 0 && ordinal < size)
+            return true;
+        return false;
+    }
+
+    /**
+     * Returns the size of this structure
+     */
+    public int size() {
+        return size;
+    }
+
+    /**
+     * Given a name, returns its corresponding <code>EnumValue</code> object
+     */
+    public EnumValue get(String name) {
+        if (!contains(name))
+            throw new IllegalArgumentException("[" + name + "] not in the map!");
+        return values.get(map.get(name));
+    }
+
+    /**
+     * Given an ordinal, returns its corresponding <code>EnumValue</code> object
+     */
+    public EnumValue get(int ordinal) {
+        if (!contains(ordinal))
+            throw new IllegalArgumentException("[" + ordinal + "] not in the map!");
+        return values.get(ordinal);
+    }
+
+    /**
+     * Returns the names of this enumeration
+     */
+    public Set<String> getNames() {
+        return map.keySet();
+    }
+
+    /**
+     * Returns an empty <code>DynamicEnumSet</code> for this structure
+     */
+    public DynamicEnumSet noneOf() {
+        DynamicEnumSet<DynamicEnum> set = new DynamicEnumSet<DynamicEnum>(this);
+        return set;
+    }
+
+    /**
+     * Returns a <code>DynamicEnumSet</code> that contains all the names of this
+     * structure
+     */
+    public DynamicEnumSet allOf() {
+        DynamicEnumSet<DynamicEnum> set = new DynamicEnumSet<DynamicEnum>(this);
+        for (EnumValue value : values) {
+            set.add(value.name());
+        }
+        return set;
+    }
+
+    public void println() {
+        for (EnumValue value : values)
+            out.println(value.name());
+    }
 }

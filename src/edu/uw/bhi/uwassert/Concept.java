@@ -3,7 +3,7 @@
 *
 * The contents of this file are subject to the LGPL License, Version 3.0.
 *
-* Copyright (C) 2017, The University of Washington
+* Copyright (C) 2021, The University of Washington
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -22,10 +22,7 @@
 package edu.uw.bhi.uwassert;
 
 import name.adibejan.util.IntPair;
-import name.adibejan.string.StringUtil;
 import name.adibejan.nlp.TextProcessor;
-
-import static java.lang.System.out;
 
 /**
  * Data structure for a medical concept

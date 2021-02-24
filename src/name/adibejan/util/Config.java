@@ -3,7 +3,7 @@
 *
 * The contents of this file are subject to the LGPL License, Version 3.0.
 *
-* Copyright (C) 2017, The University of Washington
+* Copyright (C) 2021, The University of Washington
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -37,62 +37,63 @@ import static java.lang.System.out;
  * @version 1.0
  * @since JDK1.6, October 2010
  */
-public class Config {  
-  public static String FILE_CONFIG;
-  private static SortedProperties props;
+public class Config {
+    public static String FILE_CONFIG;
+    private static SortedProperties props;
 
-  /* initialize properties */
-  static {
-    FILE_CONFIG = System.getProperty("CONFIGFILE");
-    if(FILE_CONFIG == null) 
-      ConfigurationException.throwPropertyNotSet("CONFIGFILE");
-    loadProps();
-  }
-
-  /**
-   * Loads the config file
-   */
-  private static void loadProps() {
-    props = new SortedProperties();
-    try {
-      props.load(new FileInputStream(FILE_CONFIG));
-    } catch(FileNotFoundException fnfe) {
-      out.println("Properties files not found: "+fnfe.getMessage());
-    } catch(IOException ioe) {
-      out.println(ioe.getMessage());
+    /* initialize properties */
+    static {
+        FILE_CONFIG = System.getProperty("CONFIGFILE");
+        if (FILE_CONFIG == null)
+            ConfigurationException.throwPropertyNotSet("CONFIGFILE");
+        loadProps();
     }
-  }
-  
-  /**
-   * Saves the config file
-   */
-  public static void save() {
-    try {
-      props.store(new FileOutputStream(FILE_CONFIG), "");
-    } catch(FileNotFoundException fnfe) {
-      out.println("Properties files not found: "+fnfe.getMessage());
-    } catch(IOException ioe) {
-      out.println(ioe.getMessage());
-    }    
-  }
 
-  /**
-   * Adds a new property
-   * @param property the name of the new property
-   * @param value the value for <code>property</code>
-   */
-  public static void setP(String property, String value) {
-    props.setProperty(property, value);
-  }
+    /**
+     * Loads the config file
+     */
+    private static void loadProps() {
+        props = new SortedProperties();
+        try {
+            props.load(new FileInputStream(FILE_CONFIG));
+        } catch (FileNotFoundException fnfe) {
+            out.println("Properties files not found: " + fnfe.getMessage());
+        } catch (IOException ioe) {
+            out.println(ioe.getMessage());
+        }
+    }
 
-  /**
-   * Returns the value for a specified property
-   */
-  public static String getP(String property) {
-    return props.getProperty(property);
-  }
+    /**
+     * Saves the config file
+     */
+    public static void save() {
+        try {
+            props.store(new FileOutputStream(FILE_CONFIG), "");
+        } catch (FileNotFoundException fnfe) {
+            out.println("Properties files not found: " + fnfe.getMessage());
+        } catch (IOException ioe) {
+            out.println(ioe.getMessage());
+        }
+    }
 
-  public static Enumeration propertyNames() {
-    return props.propertyNames();
-  }
+    /**
+     * Adds a new property
+     * 
+     * @param property the name of the new property
+     * @param value    the value for <code>property</code>
+     */
+    public static void setP(String property, String value) {
+        props.setProperty(property, value);
+    }
+
+    /**
+     * Returns the value for a specified property
+     */
+    public static String getP(String property) {
+        return props.getProperty(property);
+    }
+
+    public static Enumeration propertyNames() {
+        return props.propertyNames();
+    }
 }

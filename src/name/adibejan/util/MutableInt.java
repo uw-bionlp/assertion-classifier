@@ -3,7 +3,7 @@
 *
 * The contents of this file are subject to the LGPL License, Version 3.0.
 *
-* Copyright (C) 2017, The University of Washington
+* Copyright (C) 2021, The University of Washington
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,8 @@
 package name.adibejan.util;
 
 /**
- * Wrapper for int primitives that supports performing aritmetic features in place
+ * Wrapper for int primitives that supports performing aritmetic features in
+ * place
  *
  * @author Cosmin Adrian Bejan
  * @version 1.0
@@ -30,51 +31,53 @@ package name.adibejan.util;
  * @ady.rep IntCounter
  */
 public class MutableInt implements Comparable<MutableInt> {
-  private int value;
-  
-  /**
-   * Creates a new instance with default value on 0
-   */
-  public MutableInt() {
-    value = 0;
-  }
+    private int value;
 
-  /**
-   * Creates a new instance with a specified int value
-   */
-  public MutableInt(int value) {
-    this.value = value;
-  }
-  
-  /**
-   * Increment the int value by 1
-   *
-   */
-  public void inc() {
-    value++;
-  }
+    /**
+     * Creates a new instance with default value on 0
+     */
+    public MutableInt() {
+        value = 0;
+    }
 
-  public void inc(int step) {
-    value += step;
-  }
+    /**
+     * Creates a new instance with a specified int value
+     */
+    public MutableInt(int value) {
+        this.value = value;
+    }
 
-  @Override
-  public int compareTo(MutableInt other) {
-    if( value < other.value) return -1;
-    if( value > other.value) return 1;
-    return 0;
-  }
-  
-  public void set(int value) {
-    this.value = value;
-  }
+    /**
+     * Increment the int value by 1
+     *
+     */
+    public void inc() {
+        value++;
+    }
 
-  public int get() {
-    return value;
-  }
-  
-  @Override
-  public String toString() {
-    return ""+value;
-  }
+    public void inc(int step) {
+        value += step;
+    }
+
+    @Override
+    public int compareTo(MutableInt other) {
+        if (value < other.value)
+            return -1;
+        if (value > other.value)
+            return 1;
+        return 0;
+    }
+
+    public void set(int value) {
+        this.value = value;
+    }
+
+    public int get() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return "" + value;
+    }
 }
