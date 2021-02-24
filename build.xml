@@ -1,5 +1,5 @@
 <project name="uwassert" default="co" basedir=".">
-  <description>Assertion classification (lite version)</description>
+  <description>Assertion classifier</description>
 
   <property name="jlibproj.dir" value="lib"/> 
   <property name="jar.trove" value="trove-3.0.0.jar"/>  
@@ -18,7 +18,7 @@
   <!-- Initialization                                                      -->
   <!-- =================================================================== -->
   <target name="init">
-    <property name="name" value="assertionclassifier-lite"/>    
+    <property name="name" value="assertionclassifier"/>    
     <property name="version" value="1.1"/>
 
     <property name="build.src" value="src"/>
