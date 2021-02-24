@@ -70,6 +70,9 @@ public class DynamicFeatureManager<DE extends DynamicEnum> extends FeatureManage
                     break;
 
                 featurePair = DynamicFeaturePair.getMultiClassTargetInstance(line, AssertTargetClass.class, AssertConfig.featuresEnum);
+                if (featurePair == null)
+                    continue;
+                
                 if (typeFilter.contains(featurePair.featureType.name())) {
                     falph.update(featurePair.pairValue);
                     if (currentID != featurePair.instanceID) {

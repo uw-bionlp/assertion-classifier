@@ -29,8 +29,6 @@ import name.adibejan.util.dynenum.DynamicEnumSet;
 import java.util.Arrays;
 import java.util.List;
 
-import static java.lang.System.out;
-
 /**
  * System config
  *

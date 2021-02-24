@@ -50,7 +50,7 @@
   <!-- =================================================================== -->
   <target name="dist" depends="co" description="generates the distribution" >
     <mkdir dir="${build.dist}"/>
-    <jar destfile="${build.dist}/${name}-${version}.jar">
+    <jar destfile="${build.dist}/${name}-${version}.jar" update="true">
       <fileset dir="${build.class}"/>
     </jar>
   </target>

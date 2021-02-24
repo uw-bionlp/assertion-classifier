@@ -52,161 +52,165 @@ import static java.lang.System.out;
  */
 
 public abstract class FeatureManager {
-  protected FeatureWeightingScheme wscheme;
-  protected DataSplittingScheme sscheme;
-  protected int instanceCounter;
+    protected FeatureWeightingScheme wscheme;
+    protected DataSplittingScheme sscheme;
+    protected int instanceCounter;
 
-  /**
-   * Selects the current instance splitting scheme
-   */
-  public void setDataSplittingScheme(DataSplittingScheme sscheme) {
-    this.sscheme = sscheme;
-  }
-  
-  /**
-   * Selects the current feature weighting scheme
-   */
-  public void setFeatureWeightingScheme(FeatureWeightingScheme wscheme) {
-    this.wscheme = wscheme;
-  }
-
-  /**
-   * Verifies if all the configuration attributes are set
-   */
-  protected void checkSetting() {
-    assert sscheme != null : "The data splitting scheme is not set!";
-    assert wscheme != null : "The feature weighting scheme is not set!";
-  }
-  
-
-  /**
-   * Initializes all the writers associated with a specific feature file and data splitting scheme.
-   */
-  public void initWriterManager(TextWriterManager writerManager, String featureFile) {
-    Triple<String, String, String> fileTriple = StringUtil.split3FilePath(featureFile);
-    String path = null;
-    switch(sscheme) {
-    case NOSPLITTING:
-      writerManager.add("nosplit", fileTriple.getFirst()+ fileTriple.getSecond()+"_nosplit.dat");
-      break;
-    case TENFOLD:
-      for(int i = 1; i <= 10; i++) {
-        writerManager.add("trainfold"+i, fileTriple.getFirst()+ fileTriple.getSecond()+"_trainfold"+i+".dat");
-        writerManager.add("testfold"+i, fileTriple.getFirst()+ fileTriple.getSecond()+"_testfold"+i+".dat");
-      }
-      break;
-    case FIVEFOLD:
-      for(int i = 1; i <= 5; i++) {
-        writerManager.add("trainfold"+i, fileTriple.getFirst()+ fileTriple.getSecond()+"_trainfold"+i+".dat");
-        writerManager.add("testfold"+i, fileTriple.getFirst()+ fileTriple.getSecond()+"_testfold"+i+".dat");
-      }
-      break;
+    /**
+     * Selects the current instance splitting scheme
+     */
+    public void setDataSplittingScheme(DataSplittingScheme sscheme) {
+        this.sscheme = sscheme;
     }
-  }  
 
-  /**
-   * Dispatches a specific data insance into folds
-   */
-  protected void manageInstance(DataInstance instance, TextWriterManager writerManager) {
-    TextWriter writer = null;
-    switch(sscheme) {
-    case NOSPLITTING:
-      writer = writerManager.get("nosplit");
-      print(instance, writer);
-      break;
-    case TENFOLD:
-      for(int fold = 1; fold <= 10; fold++) {
-        if((instanceCounter + 10 - fold) % 10 == 0) 
-          writer = writerManager.get("testfold"+fold);
-        else 
-          writer = writerManager.get("trainfold"+fold);
-        print(instance, writer);
-      }
-      break;
-    case FIVEFOLD:
-      for(int fold = 1; fold <= 5; fold++) {
-        if((instanceCounter + 5 - fold) % 5 == 0) 
-          writer = writerManager.get("testfold"+fold);
-        else 
-          writer = writerManager.get("trainfold"+fold);
-        print(instance, writer);
-      }
-      break;
+    /**
+     * Selects the current feature weighting scheme
+     */
+    public void setFeatureWeightingScheme(FeatureWeightingScheme wscheme) {
+        this.wscheme = wscheme;
     }
-  }
 
-  /**
-   * Dispatches a specific data insance into a specified fold
-   */
-  protected void manageInstance(DataInstance instance, TextWriterManager writerManager, int FOLD) {
-    TextWriter writer = null;
-    switch(sscheme) {
-    case TENFOLD:
-      for(int fold = 1; fold <= 10; fold++) {
-        if((FOLD + 10 - fold) % 10 == 0) 
-          writer = writerManager.get("testfold"+fold);
-        else 
-          writer = writerManager.get("trainfold"+fold);
-        print(instance, writer);
-      }
-      break;
-    case FIVEFOLD:
-      for(int fold = 1; fold <= 5; fold++) {
-        if((FOLD + 5 - fold) % 5 == 0) 
-          writer = writerManager.get("testfold"+fold);
-        else 
-          writer = writerManager.get("trainfold"+fold);
-        print(instance, writer);
-      }
-      break;
+    /**
+     * Verifies if all the configuration attributes are set
+     */
+    protected void checkSetting() {
+        assert sscheme != null : "The data splitting scheme is not set!";
+        assert wscheme != null : "The feature weighting scheme is not set!";
     }
-  }
-  
-  private void print(DataInstance instance, TextWriter writer) {
-    switch(wscheme) {
-    case NOWEIGHTING: 
-      writer.println(instance.getNoWeightingFormat()); 
-      return;
-    case FREQUENCY:
-      writer.println(instance.getFrequencyWeightingFormat());        
-      return;
-    }
-    throw new ConfigurationException("Unsupported weighting scheme ["+wscheme.name()+"]");
-  }  
 
-  /**
-   * Format learning file: 0000001 PRESENT WORD#The
-   */
-  public static Set<String> extractFeatures(String filePath) {
-    Set<String> features = new TreeSet<String>();
-    Pair<String,String> featurePair = null;
-    BufferedReader input = null;
-    try {
-      input = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"));
-      String line = null;
-      while((line = input.readLine()) != null) {
-        String[] toks = line.split("\\s+");
-        if(toks.length != 3)         
-          throw new UnsupportedStringFormatException("Not valid feature representation: ["+line+"]");
-        featurePair = StringUtil.split2First(toks[2], Token.SHARP_DELIM);
-        if(featurePair.getSecond().equals("")) 
-          throw new UnsupportedStringFormatException("Not valid feature representation: ["+line+"]");
-        features.add(featurePair.getFirst());
-      }
-    } catch (FileNotFoundException ex) {
-      ex.printStackTrace();
-    } catch (IOException ioe){      
-      out.println("Error in reading the file: "+ioe.getMessage());
-      ioe.printStackTrace();
-    } finally {
-      try {
-        if (input!= null) 
-          input.close();
-      } catch (IOException ioe) {
-        out.println("Error in closing the file: "+ioe.getMessage());
-        ioe.printStackTrace();
-      }
+    /**
+     * Initializes all the writers associated with a specific feature file and data
+     * splitting scheme.
+     */
+    public void initWriterManager(TextWriterManager writerManager, String featureFile) {
+        Triple<String, String, String> fileTriple = StringUtil.split3FilePath(featureFile);
+        String path = null;
+        switch (sscheme) {
+            case NOSPLITTING:
+                writerManager.add("nosplit", fileTriple.getFirst() + fileTriple.getSecond() + "_nosplit.dat");
+                break;
+            case TENFOLD:
+                for (int i = 1; i <= 10; i++) {
+                    writerManager.add("trainfold" + i,
+                            fileTriple.getFirst() + fileTriple.getSecond() + "_trainfold" + i + ".dat");
+                    writerManager.add("testfold" + i,
+                            fileTriple.getFirst() + fileTriple.getSecond() + "_testfold" + i + ".dat");
+                }
+                break;
+            case FIVEFOLD:
+                for (int i = 1; i <= 5; i++) {
+                    writerManager.add("trainfold" + i,
+                            fileTriple.getFirst() + fileTriple.getSecond() + "_trainfold" + i + ".dat");
+                    writerManager.add("testfold" + i,
+                            fileTriple.getFirst() + fileTriple.getSecond() + "_testfold" + i + ".dat");
+                }
+                break;
+        }
     }
-    return features;
-  }
+
+    /**
+     * Dispatches a specific data insance into folds
+     */
+    protected void manageInstance(DataInstance instance, TextWriterManager writerManager) {
+        TextWriter writer = null;
+        switch (sscheme) {
+            case NOSPLITTING:
+                writer = writerManager.get("nosplit");
+                print(instance, writer);
+                break;
+            case TENFOLD:
+                for (int fold = 1; fold <= 10; fold++) {
+                    if ((instanceCounter + 10 - fold) % 10 == 0)
+                        writer = writerManager.get("testfold" + fold);
+                    else
+                        writer = writerManager.get("trainfold" + fold);
+                    print(instance, writer);
+                }
+                break;
+            case FIVEFOLD:
+                for (int fold = 1; fold <= 5; fold++) {
+                    if ((instanceCounter + 5 - fold) % 5 == 0)
+                        writer = writerManager.get("testfold" + fold);
+                    else
+                        writer = writerManager.get("trainfold" + fold);
+                    print(instance, writer);
+                }
+                break;
+        }
+    }
+
+    /**
+     * Dispatches a specific data insance into a specified fold
+     */
+    protected void manageInstance(DataInstance instance, TextWriterManager writerManager, int FOLD) {
+        TextWriter writer = null;
+        switch (sscheme) {
+            case TENFOLD:
+                for (int fold = 1; fold <= 10; fold++) {
+                    if ((FOLD + 10 - fold) % 10 == 0)
+                        writer = writerManager.get("testfold" + fold);
+                    else
+                        writer = writerManager.get("trainfold" + fold);
+                    print(instance, writer);
+                }
+                break;
+            case FIVEFOLD:
+                for (int fold = 1; fold <= 5; fold++) {
+                    if ((FOLD + 5 - fold) % 5 == 0)
+                        writer = writerManager.get("testfold" + fold);
+                    else
+                        writer = writerManager.get("trainfold" + fold);
+                    print(instance, writer);
+                }
+                break;
+        }
+    }
+
+    private void print(DataInstance instance, TextWriter writer) {
+        switch (wscheme) {
+            case NOWEIGHTING:
+                writer.println(instance.getNoWeightingFormat());
+                return;
+            case FREQUENCY:
+                writer.println(instance.getFrequencyWeightingFormat());
+                return;
+        }
+        throw new ConfigurationException("Unsupported weighting scheme [" + wscheme.name() + "]");
+    }
+
+    /**
+     * Format learning file: 0000001 PRESENT WORD#The
+     */
+    public static Set<String> extractFeatures(String filePath) {
+        Set<String> features = new TreeSet<String>();
+        Pair<String, String> featurePair = null;
+        BufferedReader input = null;
+        try {
+            input = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"));
+            String line = null;
+            while ((line = input.readLine()) != null) {
+                String[] toks = line.split("\\s+");
+                if (toks.length != 3)
+                    continue;
+                featurePair = StringUtil.split2First(toks[2], Token.SHARP_DELIM);
+                if (featurePair.getSecond().equals(""))
+                    continue;
+                features.add(featurePair.getFirst());
+            }
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ioe) {
+            out.println("Error in reading the file: " + ioe.getMessage());
+            ioe.printStackTrace();
+        } finally {
+            try {
+                if (input != null)
+                    input.close();
+            } catch (IOException ioe) {
+                out.println("Error in closing the file: " + ioe.getMessage());
+                ioe.printStackTrace();
+            }
+        }
+        return features;
+    }
 }

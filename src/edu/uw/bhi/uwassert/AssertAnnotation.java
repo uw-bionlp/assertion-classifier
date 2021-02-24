@@ -22,12 +22,6 @@
 package edu.uw.bhi.uwassert;
 
 import name.adibejan.util.IntPair;
-import name.adibejan.util.EnumUtil;
-import name.adibejan.string.StringUtil;
-
-import java.util.Comparator;
-
-import static java.lang.System.out;
 
 /**
  * Data structure for assert annotations
@@ -37,28 +31,28 @@ import static java.lang.System.out;
  * @since JDK1.6 | July 2011
  */
 public class AssertAnnotation {
-  private Concept concept;
-  private AssertTargetClass assertionValue;
+    private Concept concept;
+    private AssertTargetClass assertionValue;
 
-  /**
-   * Creates a dummy annotation for real instances
-   */
-  public static AssertAnnotation getTestInstance(IntPair conceptBoundaries, String conceptName) {
-    AssertAnnotation aa = new AssertAnnotation();
-    Concept concept = new Concept();    
-    concept.setBoundaries(conceptBoundaries);    
-    concept.setName(conceptName);
-    concept.setSentenceId(1);
-    aa.concept = concept;
-    aa.assertionValue = AssertTargetClass.ABSENT; //default value
-    return aa;
-  }
+    /**
+     * Creates a dummy annotation for real instances
+     */
+    public static AssertAnnotation getTestInstance(IntPair conceptBoundaries, String conceptName) {
+        AssertAnnotation aa = new AssertAnnotation();
+        Concept concept = new Concept();
+        concept.setBoundaries(conceptBoundaries);
+        concept.setName(conceptName);
+        concept.setSentenceId(1);
+        aa.concept = concept;
+        aa.assertionValue = AssertTargetClass.ABSENT; // default value
+        return aa;
+    }
 
-  public Concept getConcept() {
-    return concept;
-  }
-  
-  public AssertTargetClass getAssertionValue() {
-    return assertionValue;
-  }
+    public Concept getConcept() {
+        return concept;
+    }
+
+    public AssertTargetClass getAssertionValue() {
+        return assertionValue;
+    }
 }

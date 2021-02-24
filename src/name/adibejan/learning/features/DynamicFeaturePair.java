@@ -33,52 +33,57 @@ import name.adibejan.util.dynenum.DynamicEnum;
 import static java.lang.System.out;
 
 /**
- * Data structure for a feature pair with the feature type from a DynamicEnum. 
+ * Data structure for a feature pair with the feature type from a DynamicEnum.
  *
  * @author Cosmin Adrian Bejan
  * @version 1.0
  * @since JDK1.6 | September 2011
  */
 public class DynamicFeaturePair extends FeaturePair {
-  public EnumValue featureType;
-  
-  /**
-   * Builds a <code>FeaturePair</code> instance from a given string representation (for multi class taget features)
-   *
-   * Format: id target feature_type#feature_value
-   * Example: 0000001 positive WORDLEFT2#edges
-   */
-  public static <TC extends Enum<TC>> DynamicFeaturePair getMultiClassTargetInstance(String rep, Class<TC> targetClass, DynamicEnum dynenum) {
-    String[] toks = rep.split("\\s+");
-    DynamicFeaturePair instance = getPartialInstance(toks, dynenum);
-    TC target = EnumUtil.getField(toks[1].toUpperCase(), targetClass);
-    instance.targetValue = ""+(target.ordinal() + 1);
-    
-    return instance;
-  }
-  
-  /**
-   * Builds a partial <code>FeaturePair</code> instance from a given string representation (the common code
-   * for multi and binary class target features)
-   */
-  private static DynamicFeaturePair getPartialInstance(String[] toks, DynamicEnum dynenum) {
-    if(toks.length != 3) 
-      throw new UnsupportedStringFormatException("Not valid feature representation: ["+TextProcessor.flatten(toks)+"]");
-    
-    DynamicFeaturePair instance = new DynamicFeaturePair();
-    instance.instanceID = Integer.parseInt(toks[0]);
-    instance.pairValue = toks[2];    
-    Pair<String,String> featurePair = StringUtil.split2First(toks[2], DELIMITER);    
-    instance.featureType = dynenum.get(featurePair.getFirst());
-    if(featurePair.getSecond().equals("")) 
-      throw new UnsupportedStringFormatException("Not valid feature representation: ["+TextProcessor.flatten(toks)+"]");
-    instance.featureValue = featurePair.getSecond();
-        
-    return instance;
-  }  
+    public EnumValue featureType;
 
-  public void print() {
-    out.println("["+instanceID+"] ["+targetValue+"] ["+featureType.name()+"] ["+featureValue+"]");
-  }
+    /**
+     * Builds a <code>FeaturePair</code> instance from a given string representation
+     * (for multi class taget features)
+     *
+     * Format: id target feature_type#feature_value Example: 0000001 positive
+     * WORDLEFT2#edges
+     */
+    public static <TC extends Enum<TC>> DynamicFeaturePair getMultiClassTargetInstance(String rep,
+            Class<TC> targetClass, DynamicEnum dynenum) {
+        String[] toks = rep.split("\\s+");
+        DynamicFeaturePair instance = getPartialInstance(toks, dynenum);
+        if (instance == null) 
+            return null;
+            
+        TC target = EnumUtil.getField(toks[1].toUpperCase(), targetClass);
+        instance.targetValue = "" + (target.ordinal() + 1);
+
+        return instance;
+    }
+
+    /**
+     * Builds a partial <code>FeaturePair</code> instance from a given string
+     * representation (the common code for multi and binary class target features)
+     */
+    private static DynamicFeaturePair getPartialInstance(String[] toks, DynamicEnum dynenum) {
+        if (toks.length != 3)
+            return null;
+
+        DynamicFeaturePair instance = new DynamicFeaturePair();
+        instance.instanceID = Integer.parseInt(toks[0]);
+        instance.pairValue = toks[2];
+        Pair<String, String> featurePair = StringUtil.split2First(toks[2], DELIMITER);
+        instance.featureType = dynenum.get(featurePair.getFirst());
+        if (featurePair.getSecond().equals(""))
+            return null;
+        instance.featureValue = featurePair.getSecond();
+
+        return instance;
+    }
+
+    public void print() {
+        out.println("[" + instanceID + "] [" + targetValue + "] [" + featureType.name() + "] [" + featureValue + "]");
+    }
 
 }

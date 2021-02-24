@@ -67,13 +67,15 @@ public class AssertionClassifier {
 
     public String predict(String sentence, int first, int last) {
         List<String> features = featureExtractor.extractFeatures(sentence, new IntPair(first, last));
-        int[] featureIdxs = featureManager.getFeatureIndices(alph, features);
-        int maxClassIdx = decoder.decode(featureIdxs);
-        return EnumUtil.getField(maxClassIdx-1, AssertTargetClass.class).name().toLowerCase();
+        return predictWithFeatures(features);
     }
 
-    public String predict(String[] sentence, int first, int last) {
-        List<String> features = featureExtractor.extractFeatures(sentence, new IntPair(first, last));
+    public String predict(String[] tokens, int first, int last) {
+        List<String> features = featureExtractor.extractFeatures(tokens, new IntPair(first, last));
+        return predictWithFeatures(features);
+    }
+
+    private String predictWithFeatures(List<String> features) {
         int[] featureIdxs = featureManager.getFeatureIndices(alph, features);
         int maxClassIdx = decoder.decode(featureIdxs);
         return EnumUtil.getField(maxClassIdx-1, AssertTargetClass.class).name().toLowerCase();
