@@ -45,8 +45,7 @@ public class LibLinearDecoder {
     }
 
     public int decode(int[] featureIdxs) {
-        Arrays.sort(featureIdxs);
-
+        
         // Add up weights
         double[] decValues = new double[classCount];
         for (int featIdx : featureIdxs) {
