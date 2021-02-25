@@ -21,8 +21,6 @@
 
 package name.adibejan.learning.features;
 
-import static java.lang.System.out;
-
 /**
  * Data structure for a feature pair. 
  * <br> The string representation for a feature pair is:

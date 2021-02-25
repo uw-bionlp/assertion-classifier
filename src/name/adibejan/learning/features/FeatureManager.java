@@ -22,7 +22,6 @@
 package name.adibejan.learning.features;
 
 import name.adibejan.string.Token;
-import name.adibejan.string.UnsupportedStringFormatException;
 import name.adibejan.util.Pair;
 import name.adibejan.util.Triple;
 import name.adibejan.util.ConfigurationException;
@@ -30,7 +29,6 @@ import name.adibejan.string.StringUtil;
 import name.adibejan.io.TextWriter;
 import name.adibejan.io.TextWriterManager;
 
-import java.io.File;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.FileInputStream;

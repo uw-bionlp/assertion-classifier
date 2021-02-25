@@ -24,8 +24,6 @@ package name.adibejan.learning;
 import name.adibejan.wrapper.Liblinear;
 import name.adibejan.util.ConfigurationException;
 
-import static java.lang.System.out;
-
 /**
  * Main class for executing classification tasks
  *

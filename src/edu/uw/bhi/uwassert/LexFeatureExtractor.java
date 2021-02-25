@@ -438,7 +438,6 @@ public class LexFeatureExtractor {
         try {
             input = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"));
             String line = null;
-            int cnt = 1;
             while ((line = input.readLine()) != null) {
                 String[] toks = line.split("\\s+");
                 assert toks.length >= 2 : "Not valid time signal line [" + line + "]";

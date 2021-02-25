@@ -21,9 +21,7 @@
 
 package name.adibejan.learning.features;
 
-import name.adibejan.string.UnsupportedStringFormatException;
 import name.adibejan.string.StringUtil;
-import name.adibejan.nlp.TextProcessor;
 import name.adibejan.util.EnumUtil;
 import name.adibejan.util.Pair;
 

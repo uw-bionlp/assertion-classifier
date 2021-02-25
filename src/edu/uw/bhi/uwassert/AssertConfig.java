@@ -47,7 +47,6 @@ public class AssertConfig {
   /**
    *
    */
-  @SuppressWarnings("unchecked")
   public static void set() { 
     Classifier.setAlgorithm(ClassificationAlgorithm.SVM_LIBLINEAR);    
     featuresEnum = new AssertFeatures();
